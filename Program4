@@ -1,0 +1,88 @@
+CREATE TABLE tourist_place (
+    tpid NUMBER PRIMARY KEY,
+    history VARCHAR(20),
+    kilometers NUMBER(3),
+    state VARCHAR(20),
+    tpname VARCHAR(20)
+);
+
+CREATE TABLE tourist (
+    tid NUMBER PRIMARY KEY,
+    country VARCHAR(20),
+    age NUMBER,
+    tname VARCHAR(20)
+);
+
+CREATE TABLE visits (
+    tpid NUMBER(3) REFERENCES tourist_place(tpid),
+    tid NUMBER REFERENCES tourist(tid),
+    vdate DATE,
+    PRIMARY KEY(tpid, tid)
+);
+
+CREATE TABLE email (
+    tid NUMBER REFERENCES tourist(tid),
+    email VARCHAR(20),
+    PRIMARY KEY(tid, email)
+);
+
+-- Query 1: Find the state with the most tourist places  
+SELECT state  
+FROM tourist_place  
+GROUP BY state  
+HAVING COUNT(state) = (  
+    SELECT MAX(cnt)  
+    FROM (SELECT COUNT(state) AS cnt FROM tourist_place GROUP BY state) AS temp  
+);
+
+-- Query 2: Find the most visited tourist places  
+SELECT *  
+FROM tourist_place  
+WHERE tpid IN (  
+    SELECT tpid  
+    FROM visits  
+    GROUP BY tpid  
+    HAVING COUNT(tpid) = (  
+        SELECT MAX(cnt)  
+        FROM (SELECT COUNT(tpid) AS cnt FROM visits GROUP BY tpid) AS temp  
+    )  
+);
+
+-- Query 3: Find tourists who visited all tourist places in Karnataka  
+SELECT *  
+FROM tourist  
+WHERE tid IN (  
+    SELECT tid  
+    FROM visits  
+    WHERE tpid IN (SELECT tpid FROM tourist_place WHERE state = 'Karnataka')  
+    GROUP BY tid  
+    HAVING COUNT(tpid) = (  
+        SELECT COUNT(*)  
+        FROM tourist_place  
+        WHERE state = 'Karnataka'  
+    )  
+);
+
+-- Query 4: Find tourists who visited at least one tourist place in every state  
+SELECT *  
+FROM tourist  
+WHERE tid IN (  
+    SELECT tid  
+    FROM visits  
+    WHERE tpid IN (SELECT tpid FROM tourist_place)  
+    GROUP BY tid  
+    HAVING COUNT(DISTINCT (SELECT state FROM tourist_place WHERE tourist_place.tpid = visits.tpid)) =  
+           (SELECT COUNT(DISTINCT state) FROM tourist_place)  
+);
+
+-- Query 5: Find tourist places visited by tourists from all countries  
+SELECT *  
+FROM tourist_place  
+WHERE tpid IN (  
+    SELECT tpid  
+    FROM visits  
+    WHERE tid IN (SELECT tid FROM tourist)  
+    GROUP BY tpid  
+    HAVING COUNT(DISTINCT (SELECT country FROM tourist WHERE tourist.tid = visits.tid)) =  
+           (SELECT COUNT(DISTINCT country) FROM tourist)  
+);
