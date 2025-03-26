@@ -1,4 +1,40 @@
 program1 
+CREATE TABLE branch (
+    branchid INT PRIMARY KEY,
+    bname VARCHAR(10),
+    hod VARCHAR(10)
+);
+
+CREATE TABLE student (
+    usn VARCHAR(10) PRIMARY KEY,
+    name VARCHAR(10),
+    addr VARCHAR(15),
+    branchid INT REFERENCES branch(branchid),
+    sem INT
+);
+
+CREATE TABLE author (
+    authorid INT PRIMARY KEY,
+    aname VARCHAR(10),
+    country VARCHAR(10),
+    age INT
+);
+
+CREATE TABLE book (
+    bookid INT PRIMARY KEY,
+    bname VARCHAR(10),
+    authorid INT REFERENCES author(authorid),
+    publisher VARCHAR(10),
+    branchid INT REFERENCES branch(branchid)
+);
+
+CREATE TABLE borrow (
+    usn VARCHAR(10) REFERENCES student(usn),
+    bookid INT REFERENCES book(bookid),
+    borrowdate DATE,
+    PRIMARY KEY (usn, bookid) -- Added composite primary key
+);
+
 
 Query 1
 SELECT * FROM student 
