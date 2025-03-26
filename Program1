@@ -1,0 +1,55 @@
+program1 
+
+Query 1
+SELECT * FROM student 
+WHERE sem = 2 
+AND branchid IN 
+(SELECT branchid FROM branch WHERE bname = 'MCA');
+
+Query 2
+SELECT * FROM student 
+WHERE usn NOT IN 
+(SELECT usn FROM borrow);
+
+Query 3 
+SELECT student.usn, student.name, branch.bname, book.bname, author.aname 
+FROM student, branch, book, author, borrow 
+WHERE student.usn = borrow.usn 
+AND borrow.bookid = book.bookid 
+AND book.authorid = author.authorid 
+AND student.branchid = branch.branchid 
+AND student.sem = 2 
+AND branch.bname = 'MCA';
+
+Query 4
+SELECT COUNT(*), authorid 
+FROM book 
+GROUP BY authorid;
+
+Query 5 
+SELECT * FROM student 
+WHERE usn IN 
+(SELECT usn FROM borrow GROUP BY usn HAVING COUNT(usn) >= 2);
+
+Query 6
+SELECT * FROM student 
+WHERE EXISTS (
+    SELECT usn FROM borrow 
+    JOIN book ON borrow.bookid = book.bookid 
+    WHERE borrow.usn = student.usn 
+    GROUP BY usn 
+    HAVING COUNT(DISTINCT authorid) > 1
+);
+
+Query 7 
+SELECT bname FROM book 
+ORDER BY bname DESC;
+
+Query 8
+SELECT * FROM student 
+WHERE EXISTS (
+    SELECT usn FROM borrow 
+    JOIN book ON borrow.bookid = book.bookid 
+    GROUP BY usn 
+    HAVING COUNT(DISTINCT publisher) = 1
+);
