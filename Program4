@@ -26,6 +26,42 @@ CREATE TABLE email (
     PRIMARY KEY(tid, email)
 );
 
+
+-- INSERT DATA INTO TOURIST_PLACE
+INSERT INTO tourist_place (tpid, history, kilometers, state, tpname) VALUES
+(1, 'Ancient', 120, 'Karnataka', 'Hampi'),
+(2, 'Heritage', 200, 'Rajasthan', 'Jaipur Fort'),
+(3, 'Nature', 150, 'Kerala', 'Munnar'),
+(4, 'Beach', 300, 'Goa', 'Baga Beach'),
+(5, 'Mountain', 400, 'Himachal', 'Manali');
+
+-- INSERT DATA INTO TOURIST
+INSERT INTO tourist (tid, country, age, tname) VALUES
+(101, 'India', 30, 'Rajesh'),
+(102, 'USA', 25, 'John'),
+(103, 'UK', 28, 'Emily'),
+(104, 'Australia', 35, 'Steve'),
+(105, 'Canada', 27, 'Sophia');
+
+-- INSERT DATA INTO VISITS
+INSERT INTO visits (tpid, tid, vdate) VALUES
+(1, 101, '2025-01-10'),
+(2, 102, '2025-02-15'),
+(3, 103, '2025-03-20'),
+(4, 104, '2025-04-25'),
+(5, 105, '2025-05-30'),
+(1, 103, '2025-06-10'),
+(2, 105, '2025-07-05');
+
+-- INSERT DATA INTO EMAIL
+INSERT INTO email (tid, email) VALUES
+(101, 'rajesh@example.com'),
+(102, 'john@example.com'),
+(103, 'emily@example.com'),
+(104, 'steve@example.com'),
+(105, 'sophia@example.com');
+
+
 -- Query 1: Find the state with the most tourist places  
 SELECT state  
 FROM tourist_place  
