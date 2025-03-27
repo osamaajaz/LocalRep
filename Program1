@@ -35,6 +35,43 @@ CREATE TABLE borrow (
     PRIMARY KEY (usn, bookid) -- Added composite primary key
 );
 
+-- Insert data into branch table
+INSERT INTO branch (branchid, bname, hod) VALUES
+(1, 'CSE', 'Dr. A'),
+(2, 'ECE', 'Dr. B'),
+(3, 'MECH', 'Dr. C');
+
+-- Insert data into student table
+INSERT INTO student (usn, name, addr, branchid, sem) VALUES
+('S101', 'Alice', 'Bangalore', 1, 4),
+('S102', 'Bob', 'Mysore', 2, 3),
+('S103', 'Charlie', 'Delhi', 1, 5);
+
+-- Insert data into author table
+INSERT INTO author (authorid, aname, country, age) VALUES
+(1, 'Tolkien', 'UK', 81),
+(2, 'Rowling', 'UK', 58),
+(3, 'Asimov', 'USA', 72);
+
+-- Insert data into book table
+INSERT INTO book (bookid, bname, authorid, publisher, branchid) VALUES
+(1, 'LOTR', 1, 'Harper', 1),
+(2, 'HP', 2, 'Bloomsbury', 2),
+(3, 'Foundation', 3, 'Random', 1);
+
+-- Insert data into borrow table
+INSERT INTO borrow (usn, bookid, borrowdate) VALUES
+('S101', 1, '2025-03-01'),
+('S102', 2, '2025-03-05'),
+('S103', 3, '2025-03-10');
+
+-- Retrieve all data from tables in one window
+SELECT * FROM branch;
+SELECT * FROM student;
+SELECT * FROM author;
+SELECT * FROM book;
+SELECT * FROM borrow;
+
 
 Query 1
 SELECT * FROM student 
