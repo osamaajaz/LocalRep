@@ -50,6 +50,43 @@ CREATE TABLE player_phone (
     FOREIGN KEY (pid) REFERENCES player(pid)
 );
 
+
+-- INSERT DATA INTO TEAM
+INSERT INTO team (tid, tname, coach, captain_pid, city) VALUES
+(101, 'Daredevils', 'Sehwag', 1, 'Delhi'),
+(102, 'Super Kings', 'Dhoni', 2, 'Chennai'),
+(103, 'RCB', 'Kumble', 3, 'Bangalore');
+
+-- INSERT DATA INTO PLAYER
+INSERT INTO player (pid, pname, age, tid) VALUES
+(1, 'Virat Kohli', 23, 103),
+(2, 'MS Dhoni', 36, 102),
+(3, 'AB de Villiers', 34, 103),
+(4, 'David Warner', 28, 101),
+(5, 'Chris Gayle', 39, 103);
+
+-- INSERT DATA INTO STADIUM
+INSERT INTO stadium (sid, sname, picode, city, area) VALUES
+(201, 'Chinnaswamy', 560001, 'Bangalore', 'MG Road'),
+(202, 'Wankhede', 400020, 'Mumbai', 'Churchgate'),
+(203, 'Eden Gardens', 700001, 'Kolkata', 'BBD Bagh');
+
+-- INSERT DATA INTO MATCH
+INSERT INTO match (mid, mdate, time, sid, team1_id, team2_id, winning_team_id, man_of_match) VALUES
+(301, '2025-04-10', '18:30:00', 201, 101, 103, 103, 1),
+(302, '2025-04-12', '19:00:00', 202, 102, 103, 102, 2),
+(303, '2025-04-14', '20:00:00', 203, 101, 102, 101, 4);
+
+-- INSERT DATA INTO PLAYER_PHONE
+INSERT INTO player_phone (pid, phone) VALUES
+(1, 9876543210),
+(2, 8765432109),
+(3, 7654321098),
+(4, 6543210987),
+(5, 5432109876);
+
+
+
 -- Query 1: Find the youngest player and their team
 SELECT pname, tname, age 
 FROM player p, team t 
