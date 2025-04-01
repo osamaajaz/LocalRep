@@ -1,0 +1,56 @@
+
+#include <stdio.h>
+#include <conio.h>  // For getch() and clrscr()
+
+/* Linear Search Function */
+int linearSearch(int arr[], int n, int key) {
+    int i;
+    for (i = 0; i < n; ++i) {
+        if (arr[i] == key)
+            return i;  /* Return index if key is found */
+    }
+    return -1;  /* Return -1 if key is not found */
+}
+
+/* Binary Search Function (Array must be sorted) */
+int binarySearch(int arr[], int low, int high, int key) {
+    int mid;
+    while (low <= high) {
+        mid = (low + high) / 2;  /* Mid calculation for Turbo C++ */
+        
+        if (arr[mid] == key)
+            return mid;  /* Return index if key is found */
+        else if (arr[mid] < key)
+            low = mid + 1;  /* Search in the right half */
+        else
+            high = mid - 1;  /* Search in the left half */
+    }
+    return -1;  /* Return -1 if key is not found */
+}
+
+/* Main function */
+void main() {
+    int arr[] = {2, 5, 8, 12, 16, 23, 38, 56, 72, 91};  /* Sorted array */
+    int n, key, linearIndex, binaryIndex;
+    
+    clrscr();  /* Clear screen for Turbo C++ */
+
+    n = sizeof(arr) / sizeof(arr[0]);  /* Calculate array size */
+    key = 23;  /* Key to search */
+
+    /* Linear Search */
+    linearIndex = linearSearch(arr, n, key);
+    if (linearIndex != -1)
+        printf("Linear Search: Element %d found at index %d.\n", key, linearIndex);
+    else
+        printf("Linear Search: Element %d not found in the array.\n", key);
+
+    /* Binary Search */
+    binaryIndex = binarySearch(arr, 0, n - 1, key);
+    if (binaryIndex != -1)
+        printf("Binary Search: Element %d found at index %d.\n", key, binaryIndex);
+    else
+        printf("Binary Search: Element %d not found in the array.\n", key);
+
+    getch();  /* Wait for key press */
+}
