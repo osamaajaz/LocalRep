@@ -1,0 +1,64 @@
+#include <stdio.h>
+#include <conio.h>  /* For clrscr() and getch() */
+
+/* Function to perform Bubble Sort (Ascending Order) */
+void bubbleSort(int arr[], int n) {
+    int i, j, temp;
+    for (i = 0; i < n - 1; ++i) {
+        for (j = 0; j < n - i - 1; ++j) {
+            if (arr[j] > arr[j + 1]) {
+                /* Swap arr[j] and arr[j+1] */
+                temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+            }
+        }
+    }
+}
+
+/* Function to perform Selection Sort (Descending Order) */
+void selectionSort(int arr[], int n) {
+    int i, j, maxIndex, temp;
+    for (i = 0; i < n - 1; ++i) {
+        maxIndex = i;
+        for (j = i + 1; j < n; ++j) {
+            if (arr[j] > arr[maxIndex]) { /* Finding the maximum element */
+                maxIndex = j;
+            }
+        }
+        /* Swap arr[i] and arr[maxIndex] */
+        temp = arr[i];
+        arr[i] = arr[maxIndex];
+        arr[maxIndex] = temp;
+    }
+}
+
+/* Main Function */
+void main() {
+    int arr[] = {64, 34, 25, 12, 22, 11, 90};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    int i;
+
+    clrscr(); /* Clear screen for Turbo C++ */
+
+    printf("Array before sorting:\n");
+    for (i = 0; i < n; ++i)
+        printf("%d ", arr[i]);
+    printf("\n");
+
+    /* Perform Bubble Sort */
+    bubbleSort(arr, n);
+    printf("Array after Bubble Sort (Ascending Order):\n");
+    for (i = 0; i < n; ++i)
+        printf("%d ", arr[i]);
+    printf("\n");
+
+    /* Perform Selection Sort */
+    selectionSort(arr, n);
+    printf("Array after Selection Sort (Descending Order):\n");
+    for (i = 0; i < n; ++i)
+        printf("%d ", arr[i]);
+    printf("\n");
+
+    getch(); /* Wait for key press */
+}
