@@ -1,0 +1,74 @@
+
+
+# Base class demonstrating Encapsulation
+class Employee:
+    def __init__(self, name, salary):
+        # Private attributes
+        self.__name = name
+        self.__salary = salary
+
+    # Getter for name
+    def get_name(self):
+        return self.__name
+
+    # Setter for name
+    def set_name(self, name):
+        self.__name = name
+
+    # Getter for salary
+    def get_salary(self):
+        return self.__salary
+
+    # Setter for salary with validation
+    def set_salary(self, salary):
+        if salary >= 0:
+            self.__salary = salary
+        else:
+            print("Invalid salary!")
+
+    # Operator overloading: adding salaries of two employees
+    def __add__(self, other):
+        return self.__salary + other.__salary
+
+
+# Derived class demonstrating Inheritance
+class Manager(Employee):
+    def __init__(self, name, salary, department):
+        super().__init__(name, salary)  # Call base class constructor
+        self.department = department
+
+    # Method overloading using default argument
+    def display_info(self, show_department=True):
+        print("Name:", self.get_name())
+        print("Salary:", self.get_salary())
+        if show_department:
+            print("Department:", self.department)
+
+
+# Main function to demonstrate the program
+def main():
+    # Creating Employee objects
+    emp1 = Employee("Alice", 50000)
+    emp2 = Employee("Bob", 60000)
+
+    # Demonstrate Encapsulation
+    print("Initial salary of emp1:", emp1.get_salary())
+    emp1.set_salary(55000)
+    print("Updated salary of emp1:", emp1.get_salary())
+
+    # Demonstrate Operator Overloading
+    total_salary = emp1 + emp2
+    print("Total salary of emp1 and emp2:", total_salary)
+
+    # Demonstrate Inheritance and Method Overloading
+    mgr = Manager("Charlie", 80000, "IT")
+    print("\nManager Info:")
+    mgr.display_info()
+
+    print("\nManager Info (without department):")
+    mgr.display_info(show_department=False)
+
+
+# Entry point of the program
+if __name__ == "__main__":
+    main()
